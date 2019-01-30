@@ -1,6 +1,7 @@
 package com.demo.eureka.invoker.api;
 
 import com.demo.eureka.invoker.feignapi.PersonClient;
+import com.demo.eureka.invoker.model.Person;
 import com.demo.eureka.invoker.ribbon.MyLoadBalanced;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.loadbalancer.ZoneAwareLoadBalancer;
@@ -14,12 +15,10 @@ import org.springframework.cloud.netflix.ribbon.SpringClientFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -155,6 +154,11 @@ public class InvokerApi {
     public String invokerHello() {
         System.out.println("进入了调用feign的API,实际调用的是feign客户端的接口,在浏览器看结果");
         return personClient.hello();
+    }
+    @RequestMapping(value = "/invokerPerson",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String invokerPerson(){
+        System.out.println("进入了调用feign的API,实际调用的是feign客户端的接口,在浏览器看结果,json格式,id写死的");
+        return personClient.personFeign(678).toString();
     }
 
 

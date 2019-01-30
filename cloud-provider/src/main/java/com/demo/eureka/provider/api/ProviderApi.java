@@ -1,6 +1,7 @@
 package com.demo.eureka.provider.api;
 
 
+import com.demo.eureka.provider.model.Person;
 import com.demo.eureka.provider.model.PlayerInfo;
 import com.demo.eureka.provider.service.PlayerInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,14 @@ public class ProviderApi {
     @Autowired
     private PlayerInfoService playerInfoService;
 
+    /**
+     * 返回字符串
+     * @param id
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/person/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String findPlayerList2(@PathVariable("id") Integer id, HttpServletRequest request) {
+    public String Person(@PathVariable("id") Integer id, HttpServletRequest request) {
         return "你好,你输入的id是:  " + id+"   请求的URL:"+request.getRequestURL().toString();
     }
 
@@ -44,5 +51,10 @@ public class ProviderApi {
     public Object hello() {
         System.out.println("最简单的服务被调用---------返回字符串");
         return "凑数的服务2   hello ribbon and feign";
+    }
+    @RequestMapping(value = "/personFeign/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Person personFeign(@PathVariable("id") Integer id, HttpServletRequest request) {
+        Person person = new Person(id, "看端口号变化", request.getRequestURL().toString(), 23);
+        return person;
     }
 }

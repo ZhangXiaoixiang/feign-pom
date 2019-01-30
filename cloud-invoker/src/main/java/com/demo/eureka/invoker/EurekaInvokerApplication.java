@@ -19,6 +19,7 @@ public class EurekaInvokerApplication {
         System.out.println("或者自定义拦截会重定向的: http://localhost:9000/lanJie");
 
         System.out.println("feign客户端的调用: http://localhost:9000/invokerHello");
+        System.out.println("feign客户端的调用,看端口号是否满足负载均衡: http://localhost:9000/invokerPerson");
 
     }
 
